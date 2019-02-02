@@ -4,6 +4,9 @@ sudo apt-get update > /dev/null 2>&1
 echo upgrade
 sudo apt-get -y upgrade > /dev/null 2>&1
 
+echo dist upgrade
+sudo apt-get -y dist-upgrade
+
 echo installing dependencies
 apt-get install -y curl > /dev/null 2>&1
 
