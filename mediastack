@@ -42,3 +42,5 @@ docker run -d --restart always --name radarr -h radarr -p 7878:7878 -e PUID=1001
 
 echo installing sonarr
 docker run -d --restart always --name sonarr -h sonarr -p 8989:8989 -e PUID=1001 -e PGID=1001 -e TZ=Asia/Nicosia -v sonarr:/config -v /media/tvshows/inprogress:/tv -v /media/downloads:/downloads linuxserver/sonarr > /dev/null 2>&1
+
+echo installation complete
