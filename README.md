@@ -1,7 +1,7 @@
 # mediastack-debian
 Bazarr - Deluge - Jackett - Plex - Portainer - Radarr - Sonarr
 ```
-bash <(wget --no-check-certificate -qO- https://raw.githubusercontent.com/aristosv/mediastack-raspbian/master/mediastack)
+bash <(wget --no-check-certificate -qO- https://raw.githubusercontent.com/aristosv/mediastack-debian/master/mediastack)
 ```
 Run the command above on a clean, minimal installation of Debian Stretch.
 
