@@ -1,0 +1,44 @@
+echo update
+sudo apt-get update > /dev/null 2>&1
+
+echo upgrade
+sudo apt-get -y upgrade > /dev/null 2>&1
+
+echo installing dependencies
+apt-get install -y curl > /dev/null 2>&1
+
+echo clean
+sudo apt-get clean > /dev/null 2>&1
+
+echo installing docker
+curl -fsSL get.docker.com -o get-docker.sh ; sh get-docker.sh > /dev/null 2>&1
+
+echo creating containers user
+sudo adduser --disabled-password --gecos "" containers ; echo containers:containers | sudo chpasswd > /dev/null 2>&1
+
+echo adding containers user to docker group
+sudo usermod -aG docker containers > /dev/null 2>&1
+
+echo create media folders
+sudo mkdir -p /media/{downloads,tvshows,movies}
+
+echo installing bazarr
+docker run -d --restart always --name bazarr -h bazarr -p 6767:6767 -e PUID=1001 -e PGID=1001 -e TZ=Asia/Nicosia -v bazarr:/config -v /media/movies:/movies -v /media/tvshows/inprogress:/tv linuxserver/bazarr > /dev/null 2>&1
+
+echo installing deluge
+docker run -d --restart always --name deluge -h deluge -p 8112:8112 -p 58846:58846 -e PUID=1001 -e PGID=1001 -e TZ=Asia/Nicosia -v deluge:/config -v /media/downloads:/downloads linuxserver/deluge > /dev/null 2>&1
+
+echo installing jackett
+docker run -d --restart always --name=jackett -h jackett -p 9117:9117 -e PUID=1001 -e PGID=1001 -e TZ=Asia/Nicosia -v jackett:/config -v jackett:/downloads linuxserver/jackett > /dev/null 2>&1
+
+echo installing plex
+docker run -d --restart always --name=plex -h plex --net=host -e VERSION=latest -e PUID=1001 -e PGID=1001 -e TZ=Asia/Nicosia -v plex:/config -v /media/tvshows:/tvshows -v /media/movies:/movies -v plex:/transcode linuxserver/plex > /dev/null 2>&1
+
+echo installing portainer
+docker run -d --restart always --name portainer -h portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer:/data portainer/portainer > /dev/null 2>&1
+
+echo installing radarr
+docker run -d --restart always --name radarr -h radarr -p 7878:7878 -e PUID=1001 -e PGID=1001 -e TZ=Asia/Nicosia -v radarr:/config -v /media/movies:/movies -v /media/downloads:/downloads linuxserver/radarr > /dev/null 2>&1
+
+echo installing sonarr
+docker run -d --restart always --name sonarr -h sonarr -p 8989:8989 -e PUID=1001 -e PGID=1001 -e TZ=Asia/Nicosia -v sonarr:/config -v /media/tvshows/inprogress:/tv -v /media/downloads:/downloads linuxserver/sonarr > /dev/null 2>&1
