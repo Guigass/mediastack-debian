@@ -1,14 +1,13 @@
 # mediastack-debian
 Bazarr - Deluge - Jackett - Plex - Portainer - Radarr - Sonarr
+
+Run the command below on a clean, minimal installation of Debian Stretch.
 ```
 bash <(wget --no-check-certificate -qO- https://raw.githubusercontent.com/aristosv/mediastack-debian/master/mediastack)
 ```
-Run the command above on a clean, minimal installation of Debian Stretch.
-
 It will install Bazarr / Deluge / Jackett / Plex / Portainer / Radarr / Sonarr, in a containerized environment.
 
 After the installation, this is how you can access all the web apps:
-
 ```
 Name: bazarr
 Usage: subtitles downloader
