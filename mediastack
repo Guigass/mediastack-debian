@@ -17,7 +17,7 @@ echo installing docker
 curl -fsSL get.docker.com -o get-docker.sh ; sh get-docker.sh > /dev/null 2>&1
 
 echo creating containers user
-adduser --disabled-password --gecos "" containers ; echo containers:containers | sudo chpasswd > /dev/null 2>&1
+adduser --disabled-password --gecos "" containers ; echo containers:containers | chpasswd > /dev/null 2>&1
 
 echo adding containers user to docker group
 usermod -aG docker containers > /dev/null 2>&1
