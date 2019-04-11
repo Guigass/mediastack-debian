@@ -1,29 +1,29 @@
 echo update
-sudo apt-get update > /dev/null 2>&1
+apt-get update > /dev/null 2>&1
 
 echo upgrade
-sudo apt-get -y upgrade > /dev/null 2>&1
+apt-get -y upgrade > /dev/null 2>&1
 
 echo dist upgrade
-sudo apt-get -y dist-upgrade
+apt-get -y dist-upgrade
 
 echo installing dependencies
 apt-get install -y curl > /dev/null 2>&1
 
 echo clean
-sudo apt-get clean > /dev/null 2>&1
+apt-get clean > /dev/null 2>&1
 
 echo installing docker
 curl -fsSL get.docker.com -o get-docker.sh ; sh get-docker.sh > /dev/null 2>&1
 
 echo creating containers user
-sudo adduser --disabled-password --gecos "" containers ; echo containers:containers | sudo chpasswd > /dev/null 2>&1
+adduser --disabled-password --gecos "" containers ; echo containers:containers | sudo chpasswd > /dev/null 2>&1
 
 echo adding containers user to docker group
-sudo usermod -aG docker containers > /dev/null 2>&1
+usermod -aG docker containers > /dev/null 2>&1
 
 echo create media folders
-sudo mkdir -p /media/{downloads,tvshows,movies}
+mkdir -p /media/{downloads,tvshows,movies}
 
 echo installing bazarr
 docker run -d --restart always --name bazarr -h bazarr -p 6767:6767 -e PUID=1001 -e PGID=1001 -e TZ=Asia/Nicosia -v bazarr:/config -v /media/movies:/movies -v /media/tvshows/inprogress:/tv linuxserver/bazarr > /dev/null 2>&1
