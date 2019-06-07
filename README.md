@@ -11,7 +11,7 @@ After the installation, this is how you can access all the web apps:
 ```
 Name: bazarr
 Usage: subtitles downloader
-URL: http://<your_pi_ip_here>:6767
+URL: http://<your_ip_here>:6767
 ```
 ```
 Name: deluge
