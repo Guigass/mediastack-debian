@@ -25,27 +25,27 @@ echo adding containers user to docker group
 usermod -aG docker containers > /dev/null 2>&1
 
 echo create media folders
-mkdir -p /media/{downloads,filmes,series}
+mkdir -p /media/plex/{downloads,filmes,series}
 
 echo installing bazarr
-docker run -d --restart always --name bazarr -h bazarr -p 6767:6767 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v bazarr:/config -v /media/filmes:/filmes -v /media/series:/series linuxserver/bazarr > /dev/null 2>&1
+docker run -d --restart always --name bazarr -h bazarr -p 6767:6767 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v bazarr:/config -v /media/plex/filmes:/plex/filmes -v /media/plex/series:/plex/series linuxserver/bazarr > /dev/null 2>&1
 
 echo installing deluge
-docker run -d --restart always --name deluge -h deluge -p 8112:8112 -p 58846:58846 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v deluge:/config -v /media/downloads:/downloads -v /media/filmes:/filmes -v /media/series:/series linuxserver/deluge > /dev/null 2>&1
+docker run -d --restart always --name deluge -h deluge -p 8112:8112 -p 58846:58846 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v deluge:/config -v /media/plex:/plex -v /downloads:/media/plex/downloads linuxserver/deluge > /dev/null 2>&1
 
 echo installing jackett
 docker run -d --restart always --name=jackett -h jackett -p 9117:9117 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v jackett:/config -v jackett:/downloads linuxserver/jackett > /dev/null 2>&1
 
 echo installing plex
-docker run -d --restart always --name=plex -h plex --net=host -e VERSION=latest -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v plex:/config -v /media/series:/series -v /media/filmes:/filmes -v plex:/transcode linuxserver/plex > /dev/null 2>&1
+docker run -d --restart always --name=plex -h plex --net=host -e VERSION=latest -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v plex:/config -v /media/plex/series:/series -v /media/plex/filmes:/filmes -v plex:/transcode linuxserver/plex > /dev/null 2>&1
 
 echo installing portainer
 docker run -d --restart always --name portainer -h portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer:/data portainer/portainer > /dev/null 2>&1
 
 echo installing radarr
-docker run -d --restart always --name radarr -h radarr -p 7878:7878 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v radarr:/config -v /media/filmes:/filmes -v /media/downloads:/downloads linuxserver/radarr > /dev/null 2>&1
+docker run -d --restart always --name radarr -h radarr -p 7878:7878 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v radarr:/config -v /media/plex:/plex linuxserver/radarr > /dev/null 2>&1
 
 echo installing sonarr
-docker run -d --restart always --name sonarr -h sonarr -p 8989:8989 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v sonarr:/config -v /media/series:/series -v /media/downloads:/downloads linuxserver/sonarr > /dev/null 2>&1
+docker run -d --restart always --name sonarr -h sonarr -p 8989:8989 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v sonarr:/config -v /media/plex:/plex linuxserver/sonarr > /dev/null 2>&1
 
 echo installation complete
