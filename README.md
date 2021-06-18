@@ -3,7 +3,7 @@ Bazarr - Deluge - Jackett - Plex - Portainer - Radarr - Sonarr
 
 Run the command below on a clean, minimal installation of Debian Stretch.
 ```
-bash <(wget --no-check-certificate -qO- https://raw.githubusercontent.com/aristosv/mediastack-debian/master/mediastack)
+bash <(wget --no-check-certificate -qO- https://raw.githubusercontent.com/Guigass/mediastack-debian/master/mediastack)
 ```
 It will install Bazarr / Deluge / Jackett / Plex / Portainer / Radarr / Sonarr, in a containerized environment.
 
