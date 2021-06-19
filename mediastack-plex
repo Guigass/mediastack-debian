@@ -28,7 +28,7 @@ echo create media folders
 mkdir -p /media/plex/{downloads,filmes,series}
 
 echo installing bazarr
-docker run -d --restart always --name bazarr -h bazarr -p 6767:6767 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v bazarr:/config -v /media/plex/filmes:/filmes -v /media/plex/series:/series linuxserver/bazarr > /dev/null 2>&1
+docker run -d --restart always --name bazarr -h bazarr -p 6767:6767 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v bazarr:/config -v /media/plex:/plex linuxserver/bazarr > /dev/null 2>&1
 
 echo installing deluge
 docker run -d --restart always --name deluge -h deluge -p 8112:8112 -p 58846:58846 -e PUID=1001 -e PGID=1001 -e TZ=America/Sao_Paulo -v deluge:/config -v /media/plex:/plex -v /media/downloads:/downloads linuxserver/deluge > /dev/null 2>&1
